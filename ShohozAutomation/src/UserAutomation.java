@@ -1,23 +1,26 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
+//import org.testng.annotations.Test;
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.touch.WaitOptions;
+//import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.touch.offset.PointOption;
 
 public class UserAutomation {
-	AndroidDriver driver;
+	static AndroidDriver driver;
 
-	 @Test
-	 public void setUp() throws Exception {
+	 
+	 public static void main(String[] args) throws Exception {
 
 	//location of the app
 	
@@ -101,19 +104,67 @@ public class UserAutomation {
      
      Thread.sleep(5000);
      
+	 wait.until(ExpectedConditions.elementToBeClickable(By
+	         .id("com.shohoz.rides:id/lottie_destination_anim")));
+     driver.findElement(By.id("com.shohoz.rides:id/lottie_destination_anim")).click();
+     
+     wait.until(ExpectedConditions.elementToBeClickable(By
+	         .id("com.shohoz.rides:id/editText_search")));
+     driver.findElement(By.id("com.shohoz.rides:id/editText_search")).sendKeys("Beans");
+     
+     Thread.sleep(3000);
+    // wait.until(ExpectedConditions.elementToBeClickable(By
+	  //       .id("com.shohoz.rides:id/textView_average_delivery_time")));
+     //driver.findElement(By.xpath("//*[contains(text(),'Beans')]")).click();
+     MobileElement element = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
+				"new UiScrollable(new UiSelector().resourceId(\"com.shohoz.rides:id/recyclerViewRestaurantSearch\")).scrollIntoView("
+				+ "new UiSelector().textContains(\"Beans & Cookies\"))"));
+		 
+     element.click();
+     
      //TouchAction t = new TouchAction(driver);
      //t.press(PointOption.point(360, 1200)).moveTo(PointOption.point(360,600)).release().perform();
-     MobileElement element = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
+     /*MobileElement element = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
 				"new UiScrollable(new UiSelector().resourceId(\"com.shohoz.rides:id/swipe_layout\")).scrollIntoView("
 				+ "new UiSelector().textContains(\"Rice\"))"));
   		 
      element.click();		
      
     
-	  
+	Thread.sleep(2000);  
   
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@resource-id='com.shohoz.rides:id/textView_categoryName' and contains(@text,'Tehari')]")));
+	//wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[contains(text(),'tehari')]")));
+    //driver.findElement(By.xpath("//android.widget.TextView[contains(text(),'Tehari')]")).click();
+     //List<WebElement> ele = driver.findElementsById("com.shohoz.rides:id/textView_categoryName");
+     //System.out.println(ele);
+    TouchAction action = new TouchAction<>(driver);
+    action.press(PointOption.point(250, 650));
+    action.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)));
+    action.release();
+    action.perform();
     
+    Thread.sleep(1000);
+    TouchAction act = new TouchAction<>(driver);
+    act.press(PointOption.point(680, 760));
+    act.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)));
+    act.release();
+    act.perform();
+    
+    Thread.sleep(1000);
+    
+    TouchAction act1 = new TouchAction<>(driver);
+    act1.press(PointOption.point(680, 1200));
+    act1.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)));
+    act1.release();
+    act1.perform();
+    
+    wait.until(ExpectedConditions.elementToBeClickable(By
+	         .id("com.shohoz.rides:id/cart_layout")));
+    for(int i=0;i<3;i++) {
+        driver.findElement(By.id("com.shohoz.rides:id/imageView_cart_item_add")).click();
+	 }
+    */
+     Thread.sleep(10000);
 	 driver.quit();
 	 }
 
