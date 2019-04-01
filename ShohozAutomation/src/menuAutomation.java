@@ -1,5 +1,5 @@
 import java.net.URL;
-import java.time.Duration;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,7 +11,7 @@ import io.appium.java_client.android.AndroidDriver;
 
 public class menuAutomation {
 
-	static AndroidDriver driver;
+	static AndroidDriver<WebElement> driver;
 
 	 
 	 public static void main(String[] args) throws Exception {
@@ -25,23 +25,33 @@ public class menuAutomation {
 	
 	
 	//To Setup the device name
-	 capability.setCapability("deviceName","Mi5");
+	 capability.setCapability("deviceName","GR5");
 	 capability.setCapability("platformName","Android");
-	 capability.setCapability("uuid","640bee1a");
+	 capability.setCapability("uuid","84RDU17715000961");
 	//set the package name of the app
 	 capability.setCapability("appPackage", "com.shohoz.rides");
 	 //set the Launcher activity name of the app
 	 capability.setCapability("appActivity", "com.shohoz.rides.activities.splash.SplashActivity");
 	//driver object with new Url and Capabilities
-	 driver= new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capability);
+	 driver= new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"),capability);
 	 WebDriverWait wait = new WebDriverWait(driver, 30);
-	 wait.until(ExpectedConditions.elementToBeClickable(By
-	         .id("com.android.packageinstaller:id/permission_allow_button")));
-	 driver.findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
 	 
-	 wait.until(ExpectedConditions.elementToBeClickable(By
-	         .id("com.android.packageinstaller:id/permission_allow_button")));
-	 driver.findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
+	 
+	 try {
+		 Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By
+		         .id("com.android.packageinstaller:id/permission_allow_button")));
+		 driver.findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
+		 
+		 wait.until(ExpectedConditions.elementToBeClickable(By
+		         .id("com.android.packageinstaller:id/permission_allow_button")));
+		 driver.findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
+	} catch (Exception e1) {
+		System.out.println("No need for allow");
+	}
+	 
+	 
+	 
 	 wait.until(ExpectedConditions.elementToBeClickable(By
 	         .id("com.shohoz.rides:id/button_english")));
 	 driver.findElement(By.id("com.shohoz.rides:id/button_english")).click();
@@ -92,25 +102,7 @@ public class menuAutomation {
 	 wait.until(ExpectedConditions.elementToBeClickable(By
 	         .id("com.shohoz.rides:id/img_profile")));
 	 
-	/* driver.findElement(By.id("com.shohoz.rides:id/img_profile")).click();
-	 
-	 wait.until(ExpectedConditions.elementToBeClickable(By
-	         .id("com.android.packageinstaller:id/permission_allow_button")));
-	 driver.findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
-	 
-	 wait.until(ExpectedConditions.elementToBeClickable(By
-	         .id("com.android.packageinstaller:id/permission_allow_button")));
-	 driver.findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
-	 
-	 
-	 MobileElement element = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
-				"new UiScrollable(new UiSelector().resourceId(\"android:id/text1\")).scrollIntoView("
-				+ "new UiSelector().textContains(\"Gallery\"))"));
-		 
-     element.click();
-     
-    
-     */
+	
      wait.until(ExpectedConditions.elementToBeClickable(By
 	         .id("com.shohoz.rides:id/first_name")));
 	 driver.findElement(By.id("com.shohoz.rides:id/first_name")).sendKeys("Test");
@@ -125,7 +117,38 @@ public class menuAutomation {
 	    
 	 
 	
-	
+		 wait.until(ExpectedConditions.elementToBeClickable(By
+		         .id("com.shohoz.rides:id/textView_average_delivery_time")));
+		 
+		 driver.findElement(By.id("com.shohoz.rides:id/navMenu")).click();
+		 
+		 wait.until(ExpectedConditions.elementToBeClickable(By
+		         .id("com.shohoz.rides:id/design_menu_item_text")));
+		 driver.findElement(By.id("com.shohoz.rides:id/design_menu_item_text")).click();
+		 
+		 wait.until(ExpectedConditions.elementToBeClickable(By
+		         .id("com.shohoz.rides:id/linear_date_month")));
+		 driver.findElement(By.xpath("//*[contains(@text,'Order ID - SF30286519')]")).click();
+		 driver.navigate().back();
+		 
+		 wait.until(ExpectedConditions.elementToBeClickable(By
+		         .id("com.shohoz.rides:id/textView_average_delivery_time")));
+		 
+		 driver.findElement(By.id("com.shohoz.rides:id/navMenu")).click();
+		 
+		 
+		 wait.until(ExpectedConditions.elementToBeClickable(By
+		         .id("com.shohoz.rides:id/design_menu_item_text")));
+		 
+		 driver.findElement(By.xpath("//*[contains(@text,'Coupons')]")).click();
+		 
+		 
+		 wait.until(ExpectedConditions.elementToBeClickable(By
+		         .xpath("//*[@id='textview_apply_promo']")));
+		 
+		 driver.findElement(By.xpath("//*[@id='textview_apply_promo']")).click();
+		 
+		 
 	 
 	 }
 	

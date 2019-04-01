@@ -1,6 +1,7 @@
 import java.net.URL;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +12,7 @@ import io.appium.java_client.MobileDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.touch.offset.PointOption;
+
 
 public class userSignup {
 
@@ -83,11 +84,15 @@ public class userSignup {
 	 
 	 WebElement abc = driver.findElement(By.id("com.shohoz.rides:id/action_bar_root"));
 
-	    int x = abc.getLocation().getX();
-	    int y = abc.getLocation().getY();
+	
 
-	    TouchAction action = new TouchAction((MobileDriver) driver);
-	    action.press(PointOption.point(x,y)).moveTo(PointOption.point(x,y-40)).release().perform(); 
+	    Dimension size = driver.manage().window().getSize();
+		  System.out.println(size);
+		  int starty = (int) (size.height * 0.50);
+		  int endy = (int) (size.height * 0.20);
+		  int startx = size.width / 2;
+		  System.out.println("Start swipe operation");
+		  driver.swipe(startx, starty, startx, endy, 1000);
 	    
 	    driver.findElement(By.id("com.shohoz.rides:id/confirmPassword")).sendKeys("123456");
 	    
@@ -103,8 +108,6 @@ public class userSignup {
 				+ "new UiSelector().textContains(\"Dhaka\"))"));
 		 
      element.click();
-	 
-	 
 	 driver.findElement(By.id("com.shohoz.rides:id/button_next")).click();	
 	
 	 }

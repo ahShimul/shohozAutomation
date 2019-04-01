@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,15 +13,16 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.touch.WaitOptions;
+
 //import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.touch.offset.PointOption;
+
 
 public class UserAutomation {
 	static AndroidDriver driver;
 
 	 
-	 public static void main(String[] args) throws Exception {
+	 @SuppressWarnings("deprecation")
+	public static void main(String[] args) throws Exception {
 
 	//location of the app
 	
@@ -95,8 +97,13 @@ public class UserAutomation {
 	 Thread.sleep(5000);
 	 //wait.until(ExpectedConditions.elementToBeClickable(By.className("android.view.View")));
 	 	 
-	 TouchAction ta = new TouchAction(driver);
-     ta.press(PointOption.point(360, 640)).moveTo(PointOption.point(380,700)).release().perform();
+	  Dimension size = driver.manage().window().getSize();
+	  System.out.println(size);
+	  int starty = (int) (size.height * 0.50);
+	  int endy = (int) (size.height * 0.20);
+	  int startx = size.width / 2;
+	  System.out.println("Start swipe operation");
+	  driver.swipe(startx, starty, startx, endy, 1000);
      
 	 wait.until(ExpectedConditions.elementToBeClickable(By
 	         .id("com.shohoz.rides:id/button_set_location")));
@@ -162,8 +169,23 @@ public class UserAutomation {
 	         .id("com.shohoz.rides:id/cart_layout")));
     for(int i=0;i<3;i++) {
         driver.findElement(By.id("com.shohoz.rides:id/imageView_cart_item_add")).click();
+        
+        
+        
 	 }
     */
+     
+     Thread.sleep(2000);
+     
+     
+     MobileElement ele = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
+				"new UiScrollable(new UiSelector().resourceId(\"com.shohoz.rides:id/recycler_view_cuisine_list\")).scrollIntoView("
+				+ "new UiSelector().textContains(\"Appetizers\"))"));
+		 
+     ele.click();
+     
+     
+     
      Thread.sleep(10000);
 	 driver.quit();
 	 }
